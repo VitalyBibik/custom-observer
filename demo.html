@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Observer</title>
+</head>
+<body>
+<div class="root" style="display:flex; max-width: 400px; width: 100%; justify-content: space-between">
+    <div class="newItem">
+        <button class="button">AddItem</button>
+        <ul class="items">
+        </ul>
+    </div>
+    <div class="waitItem">
+        <button class="button2">AddBlock</button>
+    </div>
+</div>
+</body>
+<script src="index.js"></script>
+<script>
+    const items = document.querySelector('.items');
+    const button = document.querySelector('.button');
+    const newItems = new Observer();
+    button.addEventListener('click', () => {
+        items.insertAdjacentHTML('beforeend', '<li>element</li>')
+    })
+    newItems.subscribe(items, (node) => {
+        node.style.color = "#"+((1<<24)*Math.random()|0).toString(16);
+    }, {
+        childList: true
+    })
+    const waitItem = document.querySelector('.waitItem');
+    const button2 = document.querySelector('.button2');
+    const waitItems = new Observer();
+    button2.addEventListener('click', () => {
+        waitItem.insertAdjacentHTML('beforeend', '<div class="itsClass">element</div>')
+    })
+    waitItems.waitElement('.itsClass', (node) => {
+        node.style.color = 'red';
+        button2.remove();
+    })
+</script>
+</html>

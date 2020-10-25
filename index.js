@@ -19,12 +19,14 @@ class Observer {
                     if (!config.textNode &&!(node instanceof HTMLElement)) continue;
                     if(this.#element) {
                         if(this.checkSelector(node)) {
-                            callBack();
+                            callBack(node);
                             config.stopImmediately&&this.observer.disconnect();
+                            return  node;
                         }
                     } else {
-                        callBack();
+                        callBack(node);
                         config.stopImmediately&&this.observer.disconnect();
+                        return  node;
                     }
                 }
             }
@@ -54,11 +56,11 @@ class Observer {
             selector:element,
             type: null,
         };
-        if(/(\w+)\.\w+/.test(element)) {
+        if(/(\w+)?\.\w+/.test(element)) {
             data.type = 'class';
-        } else if(/(\w+)\#\w+/.test(element)) {
+        } else if(/(\w+)?\#\w+/.test(element)) {
             data.type = 'id';
-        } else if (/(\w+)\[\w+=(('\w+')|("\w+"))\]/.test(element)) {
+        } else if (/(\w+)?\[\w+=(('\w+')|("\w+"))\]/.test(element)) {
             data.type = 'attr';
         } else {
             throw new TypeError(`I don't know what kind of element`);
