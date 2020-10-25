@@ -37,5 +37,4 @@ observer.unsubscribe();
 ```js
 observer.remove();
 ```
-
-
+[demo demo.html](https://prnmxm.github.io/custom-observer/demo.html)
