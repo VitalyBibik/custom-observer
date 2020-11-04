@@ -21,12 +21,10 @@ class Observer {
                         if(this.checkSelector(node)) {
                             callBack(node);
                             config.stopImmediately&&this.observer.disconnect();
-                            return  node;
                         }
                     } else {
                         callBack(node);
                         config.stopImmediately&&this.observer.disconnect();
-                        return  node;
                     }
                 }
             }
